@@ -1,6 +1,14 @@
 # APA1 Supa Task Backend
 
-This is where you'll design and deploy your API for access by your frontend
+# Overview
+This code is a Deno-based HTTP server that interacts with a Supabase backend to manage a list of "fish". The server supports various HTTP request methods (GET, POST, PUT, DELETE) to perform CRUD operations on a Supabase table called fish. It provides a RESTful API to manage fish records, where each record contains details like Name, Sell, Shadow, and Where.
+
+# Key Features
+GET: Fetches all fish records from the Supabase database, ordered by the Name field in ascending order.
+POST: Adds a new fish record to the database.
+PUT: Updates an existing fish record by its unique Id.
+DELETE: Deletes a fish record based on the provided Id.
+Each of these operations validates input, handles errors, and returns appropriate responses in JSON format.
 
 ## Prerequisites
 
