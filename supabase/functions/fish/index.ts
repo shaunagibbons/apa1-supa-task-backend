@@ -29,11 +29,29 @@ serve(async (req: Request) => {
     
     // Handle POST request - add message
     if (req.method === "POST") {
-      const { message } = await req.json();
-      const { error } = await supabase.from("fish").insert([{ message }]);
-      
-      if (error) throw error;
-      return new Response(JSON.stringify({ success: true, message: "Message sent!" }), { headers });
+      // Read request body
+      const { Name, Sell, Shadow, Where } = await req.json();
+
+      // Validate input
+      if (!Name || !Sell || !Shadow || !Where) {
+        return new Response(
+          JSON.stringify({ error: "All fields are required." }),
+          { status: 400, headers }
+        );
+      }
+      const { error } = await supabase
+        .from("fish")
+        .insert([{ Name, Sell, Shadow, Where }]);
+
+      if (error) {
+        console.error("Error inserting fish:", error);
+        throw error;
+      }
+
+      return new Response(
+        JSON.stringify({ success: true, message: "Fish added successfully!" }),
+        { headers }
+      );
     }
 
     // Handle unsupported methods
